@@ -76,7 +76,7 @@ class API extends \Piwik\Plugin\API {
 				GROUP BY referer_name ORDER BY `number` DESC
                 LIMIT ".$numberOfEntries;
         $referrers = \Piwik\Db::fetchAll($sql, array(
-           	$idSite, $lastMinutes+($timeZoneDiff/60)+200 
+           	$idSite, $lastMinutes+($timeZoneDiff/60) 
        	));
 		foreach ($referrers as &$referrer) {
 			array_push($resultArray, array('id'=>$index, 'name'=>$referrer['referer_name'], 'value'=>$referrer['number']));

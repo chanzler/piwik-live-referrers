@@ -14,7 +14,7 @@
 	height:20px;	
 }
 #LiveReferrersChart div .number {
-	width:40px;
+	width:100px;
 	position: absolute;
 	top:0;
 	right:-40px;
