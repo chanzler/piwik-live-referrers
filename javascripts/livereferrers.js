@@ -8,9 +8,8 @@
 var settings = $.extend( {
 	rowHeight			: 25,
 });
-var history = [];
 
-var refreshNumber = function (id, newNumber, actNumber) {
+var refreshReferrerNumber = function (id, newNumber, actNumber) {
 	timeout = 50;
 	if(actNumber < newNumber){
 		if (newNumber-actNumber > 100) {
@@ -56,7 +55,7 @@ $(function() {
         	$.each( data, function( index, value ){
             	if ( $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").length ) {
             		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").removeClass('delete');
-            		refreshNumber(value['idvisit'], value['value'], $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').text());
+            		refreshReferrerNumber(value['idvisit'], value['value'], $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').text());
             		//$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').html(value['value']);
             		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", index);
             	} else {
