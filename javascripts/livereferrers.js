@@ -34,9 +34,9 @@ $(function() {
         	    return b.percentage - a.percentage;
         	});
         	$.each( data, function( index, value ){
-              	var pc = value['value'];
-        		pc = pc > 100 ? 100 : pc;
-        		$('#LiveReferrersChart').find("div[id="+value['id']+"]").children('.number').html(pc);
+              	//var pc = value['value'];
+        		//pc = pc > 100 ? 100 : pc;
+        		$('#LiveReferrersChart').find("div[id="+value['id']+"]").children('.number').html(value['value']);
         		//var ww = $('#LiveReferrersChart').find("div[id="+value['id']+"]").width();
         		//var len = parseInt(ww, 10) * parseInt(pc, 10) / 100;
         		//$('#LiveReferrersChart').find("div[id="+value['id']+"]").children('.bar').animate({ 'width' : len+'px' }, 1500);
@@ -78,10 +78,10 @@ $(function() {
                 }
             });
         	$.each( data, function( index, value ){
-               	var pc = value['value'];
-        		pc = pc > 100 ? 100 : pc;
+               	//var pc = value['value'];
+        		//pc = pc > 100 ? 100 : pc;
         		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['id']);
-        		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(pc);
+        		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(value['value']);
         		$('#LiveReferrersChart').find("div[index="+index+"]").children('.title').text(value['name']);
         		//var ww = $('#LiveReferrersChart').find("div[index="+index+"]").width();
         		//var len = parseInt(ww, 10) * parseInt(pc, 10) / 100;
