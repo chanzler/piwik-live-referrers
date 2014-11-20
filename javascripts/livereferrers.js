@@ -116,9 +116,14 @@ $(function() {
 			$("#LiveReferrersChart").find('div').each(function() {
 				$(this).height(settings['rowHeight']);
 			});
-            for (j=0; j<i; j++){
-            	$("#LiveReferrersChart").find("div[index="+j+"]").css({ top: j*settings['rowHeight'] }).appendTo(".tpbv table");
-            }
+            //for (j=0; j<i; j++){
+            //	$("#LiveReferrersChart").find("div[index="+j+"]").css({ top: j*settings['rowHeight'] }).appendTo("#LiveReferrersChart");
+            //}
+			var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
+			for ( index = 0; index < data.length; index++) {
+				$("#LiveReferrersChart").find("div[index="+index+"]").stop().delay(1 * index).animate({ top: vertical_offset}, 1000, 'swing').appendTo("#LiveReferrersChart");
+				vertical_offset += settings['rowHeight'];
+			}
 
             $('#LiveReferrersChart').each(function() {
     			var $this = $(this),
