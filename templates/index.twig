@@ -1,14 +1,11 @@
 <section id="LiveReferrersWrapper">	
 
 	<div id="LiveReferrersChart" style="margin-top:10px;">
-	{% for i in 0..30 %}
-    	<div title="" index="{{ i }}" value="" class="red"><span class="title"></span><span class="bar"></span><span class="number"></span></div>
-	{% endfor %}
 	</div>
 	
 </section>
 <script type="text/javascript">
   $(document).ready(function () {
-    require('piwik/LiveReferrers').initSimpleRealtimeLiveReferrersWidget({{ refreshInterval }});
+    require('piwik/LiveReferrers').initSimpleRealtimeLiveReferrersWidget({{ 20 }});
   });
 </script>

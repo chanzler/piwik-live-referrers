@@ -10,6 +10,30 @@ var settings = $.extend( {
 });
 var history = [];
 
+var refreshNumber = function (id, newNumber, actNumber) {
+	timeout = 50;
+	if(actNumber < newNumber){
+		if (newNumber-actNumber > 100) {
+			timeout = 1;
+		} else if (newNumber-actNumber > 10) {
+			timeout = 10;
+		}
+		actNumber++;
+	} else if(actNumber > newNumber){
+		if (actNumber-newNumber > 100) {
+			timeout = 1;
+		} else if (actNumber-newNumber > 10) {
+			timeout = 10;
+		}
+		actNumber--;
+	}
+	$('#LiveReferrersChart').find("div[id="+id+"]").children('.number').text(actNumber);
+	// schedule counter
+    if (actNumber != newNumber){
+    	setTimeout(function () { refreshNumber(id, newNumber, actNumber); }, timeout);
+    }
+}
+
 /**
  * jQueryUI widget for Live visitors widget
  */
@@ -19,30 +43,38 @@ $(function() {
         if ($(element).parent().length == 0) {
             return;
         }
-        var lastMinutes = $(element).find('.dynameter').attr('data-last-minutes') || 30;
-
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
             method: 'LiveReferrers.getLiveReferrers',
             format: 'json',
-            lastMinutes: lastMinutes
+            lastMinutes: 20
         }, 'get');
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
-        	data.sort(function(a, b){
-        	    return b.value - a.value;
-        	});
+        	$('#LiveReferrersChart .red').addClass("delete");
         	$.each( data, function( index, value ){
-              	//var pc = value['value'];
-        		//pc = pc > 100 ? 100 : pc;
-        		$('#LiveReferrersChart').find("div[id="+value['id']+"]").children('.number').html(value['value']);
-        		//var ww = $('#LiveReferrersChart').find("div[id="+value['id']+"]").width();
-        		//var len = parseInt(ww, 10) * parseInt(pc, 10) / 100;
-        		//$('#LiveReferrersChart').find("div[id="+value['id']+"]").children('.bar').animate({ 'width' : len+'px' }, 1500);
-        		$('#LiveReferrersChart').find("div[id="+value['id']+"]").attr("index", index);
-
+            	if ( $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").length ) {
+            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").removeClass('delete');
+            		refreshNumber(value['idvisit'], value['value'], $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').text());
+            		//$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').html(value['value']);
+            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", index);
+            	} else {
+                	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+index+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
+            		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['idvisit']);
+            		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(value['value']);
+            		$('#LiveReferrersChart').find("div[index="+index+"]").children('.title').text(value['name']);
+            	}
         	});
+            $( ".delete").remove();
+
+            $("#LiveReferrersChart").find('div').each(function() {
+				$(this).height(settings['rowHeight']);
+			});
+
+			// Set table height and width
+            $("#LiveReferrersChart").height((data.length*settings['rowHeight']));
+
 			//animation
 			var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
 			for ( index = 0; index < data.length; index++) {
@@ -62,13 +94,10 @@ $(function() {
             module: 'API',
             method: 'LiveReferrers.getLiveReferrers',
             format: 'json',
-            lastMinutes: 30
+            lastMinutes: 20
         }, 'get');
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
-        	data.sort(function(a, b){
-        	    return b.value - a.value;
-        	});
             $('#LiveReferrersChart').each(function() {
                 // Set table height and width
     			$("#LiveReferrersChart").height((data.length*settings['rowHeight']));
@@ -77,16 +106,21 @@ $(function() {
                 	$("#LiveReferrersChart").find("div[index="+j+"]").css({ top: (j*settings['rowHeight']) }).appendTo("#LiveReferrersChart");
                 }
             });
+            i = 0;
         	$.each( data, function( index, value ){
-               	//var pc = value['value'];
-        		//pc = pc > 100 ? 100 : pc;
-        		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['id']);
+            	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+i+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
+        		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['idvisit']);
         		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(value['value']);
         		$('#LiveReferrersChart').find("div[index="+index+"]").children('.title').text(value['name']);
-        		//var ww = $('#LiveReferrersChart').find("div[index="+index+"]").width();
-        		//var len = parseInt(ww, 10) * parseInt(pc, 10) / 100;
-        		//$('#LiveReferrersChart').find("div[index="+index+"]").children('.bar').animate({ 'width' : len+'px' }, 1500);
+        		i++;
         	});
+			$("#LiveReferrersChart").find('div').each(function() {
+				$(this).height(settings['rowHeight']);
+			});
+            for (j=0; j<i; j++){
+            	$("#LiveReferrersChart").find("div[index="+j+"]").css({ top: j*settings['rowHeight'] }).appendTo(".tpbv table");
+            }
+
             $('#LiveReferrersChart').each(function() {
     			var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
