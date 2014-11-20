@@ -31,7 +31,7 @@ $(function() {
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
         	data.sort(function(a, b){
-        	    return b.percentage - a.percentage;
+        	    return b.value - a.value;
         	});
         	$.each( data, function( index, value ){
               	//var pc = value['value'];
@@ -67,7 +67,7 @@ $(function() {
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
         	data.sort(function(a, b){
-        	    return b.percentage - a.percentage;
+        	    return b.value - a.value;
         	});
             $('#LiveReferrersChart').each(function() {
                 // Set table height and width
