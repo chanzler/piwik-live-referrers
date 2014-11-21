@@ -11,7 +11,6 @@ var settings = $.extend( {
 
 var refreshReferrerNumber = function (id, newNumber, actNumber) {
 	timeout = 50;
-	console.log(id+" "+newNumber+" "+actNumber);
 	if(actNumber < newNumber){
 		if (newNumber-actNumber > 100) {
 			timeout = 1;
@@ -30,7 +29,7 @@ var refreshReferrerNumber = function (id, newNumber, actNumber) {
 	$('#LiveReferrersChart').find("div[id="+id+"]").children('.number').text(actNumber);
 	// schedule counter
     if (actNumber != newNumber){
-    	setTimeout(function () { refreshNumber(id, newNumber, actNumber); }, timeout);
+    	setTimeout(function () { refreshReferrerNumber(id, newNumber, actNumber); }, timeout);
     }
 }
 
