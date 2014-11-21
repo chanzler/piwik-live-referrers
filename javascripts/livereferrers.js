@@ -57,12 +57,12 @@ $(function() {
             		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").removeClass('delete');
             		refreshReferrerNumber(value['idvisit'], value['value'], $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').text());
             		//$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').html(value['value']);
-            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", index);
+            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", value['id']);
             	} else {
-                	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+index+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
-            		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['idvisit']);
-            		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(value['value']);
-            		$('#LiveReferrersChart').find("div[index="+index+"]").children('.title').text(value['name']);
+                	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+value['id']+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
+            		$('#LiveReferrersChart').find("div[index="+value['id']+"]").attr("id", value['idvisit']);
+            		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.number').html(value['value']);
+            		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.title').text(value['name']);
             	}
         	});
             $( ".delete").remove();
