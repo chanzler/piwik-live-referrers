@@ -60,7 +60,8 @@ $(function() {
             		//$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').html(value['value']);
             	} else {
                 	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+value['id']+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
-            		$('#LiveReferrersChart').find("div[index="+value['id']+"]").attr("id", value['idvisit']);
+                	$('#LiveReferrersChart').find("div[index="+value['id']+"]").css('top', data.length*settings['rowHeight']);
+                	$('#LiveReferrersChart').find("div[index="+value['id']+"]").attr("id", value['idvisit']);
             		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.number').html(value['value']);
             		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.title').text(value['name']);
             	}
