@@ -55,9 +55,9 @@ $(function() {
         	$.each( data, function( index, value ){
             	if ( $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").length ) {
             		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").removeClass('delete');
+            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", value['id']);
             		refreshReferrerNumber(value['idvisit'], value['value'], $('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').text());
             		//$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").children('.number').html(value['value']);
-            		$('#LiveReferrersChart').find("div[id="+value['idvisit']+"]").attr("index", value['id']);
             	} else {
                 	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+value['id']+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
             		$('#LiveReferrersChart').find("div[index="+value['id']+"]").attr("id", value['idvisit']);
