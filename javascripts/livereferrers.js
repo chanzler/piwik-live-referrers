@@ -11,6 +11,7 @@ var settings = $.extend( {
 
 var refreshReferrerNumber = function (id, newNumber, actNumber) {
 	timeout = 50;
+	console.log(id+" "+newNumber+" "+actNumber);
 	if(actNumber < newNumber){
 		if (newNumber-actNumber > 100) {
 			timeout = 1;
