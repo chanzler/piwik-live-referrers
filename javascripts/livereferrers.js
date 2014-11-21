@@ -76,7 +76,7 @@ $(function() {
 
 			//animation
 			var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
-			for ( index = 0; index < data.length; index++) {
+			for ( index = 1; index <= data.length; index++) {
 				$("#LiveReferrersChart").find("div[index="+index+"]").stop().delay(1 * index).animate({ top: vertical_offset}, 1000, 'swing').appendTo("#LiveReferrersChart");
 				vertical_offset += settings['rowHeight'];
 			}
@@ -107,10 +107,10 @@ $(function() {
             });
             i = 0;
         	$.each( data, function( index, value ){
-            	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+i+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
-        		$('#LiveReferrersChart').find("div[index="+index+"]").attr("id", value['idvisit']);
-        		$('#LiveReferrersChart').find("div[index="+index+"]").children('.number').html(value['value']);
-        		$('#LiveReferrersChart').find("div[index="+index+"]").children('.title').text(value['name']);
+            	$( "#LiveReferrersChart" ).append( "<div title=\"\" index=\""+value['id']+"\" class=\"red\"><span class=\"title\"></span><span class=\"bar\"></span><span class=\"number\"></span></div>" );
+        		$('#LiveReferrersChart').find("div[index="+value['id']+"]").attr("id", value['idvisit']);
+        		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.number').html(value['value']);
+        		$('#LiveReferrersChart').find("div[index="+value['id']+"]").children('.title').text(value['name']);
         		i++;
         	});
 			$("#LiveReferrersChart").find('div').each(function() {
@@ -120,7 +120,7 @@ $(function() {
             //	$("#LiveReferrersChart").find("div[index="+j+"]").css({ top: j*settings['rowHeight'] }).appendTo("#LiveReferrersChart");
             //}
 			var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
-			for ( index = 0; index < data.length; index++) {
+			for ( index = 1; index <= data.length; index++) {
 				$("#LiveReferrersChart").find("div[index="+index+"]").stop().delay(1 * index).animate({ top: vertical_offset}, 1000, 'swing').appendTo("#LiveReferrersChart");
 				vertical_offset += settings['rowHeight'];
 			}
